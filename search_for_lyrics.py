@@ -1,4 +1,21 @@
-from sqlalchemy import desc
+#!/usr/bin/env python3
+from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+from sqlalchemy import create_engine, asc, desc
+from sqlalchemy.orm import sessionmaker
+from database_setup import Base, Car, CarType, User
+from flask import session as login_session
+import random
+import string
+
+# IMPORTS FOR THIS STEP
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.client import FlowExchangeError
+import httplib2
+import json
+from flask import make_response
+import requests
+app = Flask(__name__)
+
 
 # this for handling search page in new page and  I added search
 #alghrothem to showCars() without new page
@@ -39,7 +56,7 @@ def makeSearch():
                  "give me top songs on youtube",
                  ]
     
-    if request.method == 'POST':                             
+    if request.method == 'POST':                           
         user_search = request.form['search']
         result = session.query(Songs).filter_by(name = user_search).first()
         if result == None:
@@ -47,10 +64,8 @@ def makeSearch():
         elif result == None and len(str(user_search)) == 4:
             result = session.query(Songs).filter_by(year = user_search).first()
         #if user searched for the top watched songs use top_songs list     
-        elif user_search in top_songs:
-            not_enough = None
-            result = session.query(Songs).order_by(desc(Songs.views)).limit(10).all()            
-        return render_template('search.html', result = result,
-                               searched_for = user_search)       
+        elif result == None and user_search in top_songs:
+            result = session.query(Songs).order_by(desc(Songs.views)).limit(10).all()
+        return render_template('search.html', result = result, searched_for = user_search)       
     else:        
         return render_template('index.html')
