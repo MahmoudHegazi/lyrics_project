@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+  
+
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+.top-header {
+    position: relative;
+    width: 100%;
+    height: 88px;
+    background-color: #f5f500;
+    z-index: 1010;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.1);
+}
+
+.warrper {
+    margin: 0 auto;
+    background-color: #f7f7ff;
+    box-shadow: 0 0 5px rgba(0,0,0,.1);
+    
+}
+
+.logo {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+}
+
+/* search icon */
+
+.search_icon  span {
+  position: absolute;
+  left: 85%;
+  top: 35%;
+  color: black;
+  font-size: 18px;
+}
+
+/* nav icons */
+
+.top_nav {
+  
+  font-size: 16px;
+  font-weight: bold;
+
+ 
+  color: #000000;
+  font-size: 16px;
+    font-weight: 600;
+    line-height: 17px;
+    margin: 10px;
+    text-decoration: none;
+
+    padding: 0 10px;
+    transition: color .17s ease;
+}
+
+.hide_me1 {
+  display: none;
+}
+
+.show_me {
+  display: block;
+}
+
+.search_input {
+    
+    height: 58px;
+    font-family: inherit;
+    color: #000000;
+    margin: 0;
+  
+    background-color: rgba(0,0,0,0);
+    font-size: 18px;
+    font-weight: 400;
+    box-sizing: border-box;
+    border: 0;
+}
+.search_input:focus {
+    color: #000000;
+    outline: none;
+}
+
+</style>
+</head>
+<body onresize="fix_nav()">
+
+<div class="warrper">
+
+ <div class="top-header">
+   <div class="logo"></div>
+
+    <div id="top_nav"  class="d-flex justify-content-center mb-3">
+
+<img alt="ExpoLyrics" data-height="600" data-width="1500" src="imagelogo.png"
+  width="110" height="40" class="hide_me"> 
+    <div id="x" class="p-2 top_nav hide_me">English</div>
+    <div class="p-2 top_nav hide_me">Hindi</div>
+    <div class="p-2 top_nav hide_me">Punjabi</div>
+    <div class="p-2 top_nav hide_me">Spanish</div>
+
+    <div class="search_icon" >
+    <input id="search_space" class="search_input" style="display:none;"
+    placeholder="Search this blog" >
+      <span   style="cursor:pointer;">
+      <span id="search_iconjs" onclick="show_search()" class="glyphicon glyphicon-search"></span>
+      <span id="search_close" class="glyphicon glyphicon-remove" style="display:none;"
+      onclick="hide_search()"></span>
+      </span>
+    </div>  
+  </div>
+
+
+
+ </div>
+  </div>
+  
+  <script>  
+  
+      let getInput =  document.getElementById("search_space");
+      let getIcon =  document.getElementById("search_iconjs");
+      let getIconClose =  document.getElementById("search_close");
+      let getElem = document.getElementsByClassName("hide_me"); 
+      let getNavDiv = document.getElementById("top_nav");
+      let test = document.getElementById("x");
+      
+      
+      // check  inner width if it  < 1100 and > 650 make the nav at left
+      
+      if (window.innerWidth <= 1100 && window.innerWidth > 650) {
+         getNavDiv.className = "d-flex justify-content-start mb-3";
+         getInput.style.marginLeft = (window.innerWidth - window.innerWidth/1.2 ) + "px";
+      } else {
+         getNavDiv.className = "d-flex justify-content-center mb-3"
+         getInput.style.marginLeft = "0";
+      }
+      
+      // repeate this function add it to body onresize event to ultimate resposive
+      function fix_nav() {
+      
+      if (window.innerWidth <= 1100 && window.innerWidth > 650) {
+         getNavDiv.className = "d-flex justify-content-start mb-3";
+         getInput.style.marginLeft = (window.innerWidth - window.innerWidth/1.2 ) + "px";
+      } else {
+         getNavDiv.className = "d-flex justify-content-center mb-3"
+         getInput.style.marginLeft = "0";
+      }
+      
+      }
+
+    function show_search() {
+
+      //this to reconigze innerwidth of screen and make it euqal to input width
+      var screen_width = window.innerWidth;     
+      getIcon.style.display = "none";
+      getInput.style.display = "block";
+      getIconClose.style.display = "block"
+      getInput.style.width = (window.innerWidth - window.innerWidth/2 ) + "px";
+      
+      // these are log, english, hindi, punjabi, spanish hide them
+      getElem[0].style.display = "none";
+      getElem[1].style.display = "none";
+      getElem[2].style.display = "none";
+      getElem[3].style.display = "none";
+      getElem[4].style.display = "none";      
+      getInput.focus();      
+      
+      // center the search input if screen < 700 pixel      
+      if (window.innerWidth < 700) {
+         getInput.style.width = (window.innerWidth - window.innerWidth/1.5 ) + "px";
+      }
+    }
+    
+    // reverse show_search fucntion    
+    function hide_search() {
+      getIcon.style.display = "block";
+      getInput.style.display = "none";
+      getIconClose.style.display = "none";
+      getInput.style.width = (window.innerWidth - window.innerWidth/2) + "px";
+      
+      // these are log, english, hindi, punjabi, spanish show them
+      getElem[0].style.display = "block";
+      getElem[1].style.display = "block";
+      getElem[2].style.display = "block";
+      getElem[3].style.display = "block";
+      getElem[4].style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
