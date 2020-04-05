@@ -51,6 +51,9 @@ class Song(Base):
     lyrics = Column(String(5000), nullable=False)
     pic = Column(String(500), nullable=False)
     actor = Column(String(300), nullable=False)
+    ease = Column(String(20), nullable=False)
+    #name_link store the song name with no spacese to render songs
+    name_link = Column(String(120), nullable=False)
     year = Column(String(4))
     song_link = Column(String(600))
     views = Column(Integer)    
@@ -69,6 +72,7 @@ class Song(Base):
             'actor': self.actor,
             'views': self.views,
             'year': self.year,
+            'name_link': self.name_link,
         }
     
 
